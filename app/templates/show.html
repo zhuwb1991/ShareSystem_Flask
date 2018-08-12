@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    阅读全文
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/show.css') }}">
+    <script src="{{ url_for('static',filename='js/bootstrapValidator.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/show.js') }}"></script>
+    <link href="{{ url_for('static',filename='css/bootstrapValidator.min.css') }}" rel="stylesheet" />
+{% endblock %}
+{% block body %}
+
+<div class="jumbotron header">
+    <div class="container">
+        <h2 class="header_font">分享是一种精神.</h2>
+        <p></p>
+        {% if user %}
+            <p><a class="btn btn-primary btn-lg" href="{{ url_for('article.add_content') }}" role="button">开始分享</a></p>
+        {% else %}
+            <p><a class="btn btn-primary btn-lg" href="{{ url_for('main.register') }}" role="button">成为会员</a></p>
+        {% endif %}
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-8">
+            <article class="article">
+                <p class="title">{{ article.title }}</p>
+                <p class="info">作者： {{ article.author_name }}  • {{ article.time }}</p>
+                <div class="content">
+                    {% autoescape false %}
+                    {{ article.content }}
+                    {% endautoescape %}
+                </div>
+                <hr>
+                <p class="comment_num">{{ article.article_comments|length }}&nbsp;条评论</p>
+            </article>
+
+
+
+            <div class="about-author">
+                <p><span class="bottom-title">关于作者</span><span class="bottom-title"><a href="">{{ article.author_name }}</a></span></p>
+                <p>
+{#                    <span class="glyphicon glyphicon-home home" aria-hidden="true"></span><span>江西</span>#}
+                    <span class="glyphicon glyphicon-user person_center" aria-hidden="true"></span><span><a
+                        href="">个人中心</a></span>
+                </p>
+            </div>
+
+
+
+            <div class="write">
+                {% if user %}
+                    <p><span class="bottom-title">发表评论</span></p>
+                    <form method="post" action="{{ url_for('comment.add_comment') }}">
+                        <div class="form-group">
+                            <textarea class="form-control" rows="3" name="comment"></textarea>
+                        </div>
+                        <div class="form-group"><input type="hidden" name="article_id" value="{{ article.id }}"></div>
+                        <p style="text-align: right"><button type="submit" class="btn btn-success">评论</button></p>
+                    </form>
+                {% else %}
+                    <p><span class="bottom-title"><a href="{{ url_for('main.login') }}">登录</a>后评论</span></p>
+                {% endif %}
+            </div>
+
+            <ul class="media-list answer-list">
+                <p class="comment_num">评论:({{ article.article_comments|length }})</p>
+                {% for foo in article.article_comments %}
+                    <li class="media">
+                        <div class="media-left">
+                            <a href="#">
+                                {% if foo.comment_user_name=='stefan' %}
+                                    <img class="media-object img-circle" src="{{ url_for('static',filename='images/boy.jpg') }}"  width="45" height="45" >
+                                {% else %}
+                                    <img class="media-object img-circle" src="{{ url_for('static',filename='images/girl.jpg') }}"  width="45" height="45" >
+                                {% endif %}
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <span>{{ foo.comment_user_name }}</span>
+                            <div class="comment_time">
+                                <span>{{ foo.time }}</span>
+                            </div>
+                            <p class="comment_content">{{ foo.content }}</p>
+                        </div>
+                    </li>
+                    <hr>
+                {% endfor %}
+            </ul>
+
+        </div>
+        <div class="col-md-4">
+
+            <div class="right-box">
+                <p class="right-title"></p>
+                <hr>
+                <div><p><img  style="margin-left: 60px" src="{{ url_for('static',filename='images/logo.jpg') }}" width="200" height="120"></p></div>
+                <h3 style="text-align: center">合合信息</h3>
+            </div>
+
+            <div class="right-box">
+{#                <p class="right-title">开发者</p>#}
+{#                <p><span class="glyphicon glyphicon-user right-span" aria-hidden="true"></span>Stefan Salvatore</p>#}
+{#                <p class="email"><span class="glyphicon glyphicon-globe right-span" aria-hidden="true"></span>stefanlyang@foxmail.com</p>#}
+{#                <hr>#}
+                <p class="right-title">修改人</p>
+                <p><span class="glyphicon glyphicon-user right-span" aria-hidden="true"></span>zhu_wb</p>
+            </div>
+
+
+
+{#            <div class="right-box">#}
+{#                <p class="right-title">赞助我</p>#}
+{#                <hr>#}
+{#                <div style="width: 80%;height: 80%;margin: auto"><p><img style="margin: auto" src="{{ url_for('static',filename='images/QR.png') }}"  class="img-responsive img-rounded" width="250" height="250"></p></div>#}
+{#            </div>#}
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}

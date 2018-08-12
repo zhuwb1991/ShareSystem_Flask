@@ -1,0 +1,74 @@
+body{
+    background: #ebebeb;
+}
+
+.row_div{
+    background: white;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+.col_div{
+    padding: 0;
+}
+
+.username{
+    position: absolute;
+    left: 135px;
+    top: 20px;
+}
+.email{
+    position: absolute;
+    left: 135px;
+    top: 40px;
+}
+.username_image{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.container_div{
+    margin-top: 60px;
+}
+.div_left{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-right: 1px solid #e6e6e6;
+    border-left: 1px solid #e6e6e6;
+}
+.div_right{
+    padding-top: 20px;
+}
+.more{
+    float: right;
+}
+.ico{
+    width: 20px;
+    height: 20px;
+    margin-left: 20px;
+    margin-right: 7px;
+}
+.ico_text{
+    font-weight: 500;
+    font-family: 微软雅黑;
+    position: relative;
+    top: 2px;
+}
+a:hover{
+    text-decoration: none;
+}
+.article_list{
+    list-style: none;
+    line-height: 50px;
+    font-size: 20px;
+    padding: 20px;
+}
+.article_li{
+    border-bottom: 1px solid #e6e6e6;
+    display: inline-block;
+    width: 80%;
+}
+.btn.btn-danger{
+    margin-bottom: 1px;
+}
+.btn.edit{
+    margin-bottom: 1px;
+}

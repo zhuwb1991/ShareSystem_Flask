@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    首页
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/index.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="jumbotron header">
+    <div class="container">
+        <h2 class="header_font">分享是一种态度.</h2>
+{#        <p>记忆弥足珍贵.</p>#}
+        {% if user %}
+            <p><a target="_blank" class="btn btn-primary btn-lg" href="{{ url_for('article.add_content') }}" role="button">开始分享</a></p>
+        {% else %}
+            <p><a target="_blank" class="btn btn-primary btn-lg" href="{{ url_for('main.login') }}" role="button">开始分享</a></p>
+        {% endif %}
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 img-rounded">
+            {% for foo in posts %}
+                <article class="article">
+                    <p class="title">{{ foo.title }}</p>
+                    <p class="info">作者： {{ foo.author_name }}  • {{ foo.time }}</p>
+                    <div class="content">
+                        {% autoescape false %}
+                        {{ foo.first_content }}
+                        {% endautoescape %}
+                        <span class="br"></span>
+                        {% autoescape false %}
+                        <p style="text-align: center">
+                            {{ foo.first_image }}
+                        </p>
+                        {% endautoescape %}
+                    </div>
+                    <a href="{{ url_for('article.show', article_id=foo.id) }}" class="btn btn-warning">阅读全文</a>
+                    <hr>
+                    <p class="comment_num">{{ foo.article_comments|length }}&nbsp;条评论</p>
+                </article>
+            {% endfor %}
+
+            <nav>
+                <ul class="pager">
+                    {% if pagination.has_prev %}
+                        <li><a href="{{ url_for('main.index',page=pagination.page-1) }}">上一页</a></li>
+                    {% else %}
+                        <li  class="disabled"><a href="#">上一页</a></li>
+                    {% endif %}
+                    {% if pagination.has_next %}
+                        <li><a href="{{ url_for('main.index',page=pagination.page+1) }}">下一页</a></li>
+                    {% else %}
+                        <li  class="disabled"><a href="#">下一页</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="right-box">
+                <p class="right-title"></p>
+                <hr>
+                <div><p><img  style="margin-left: 60px" src="{{ url_for('static',filename='images/logo.jpg') }}" width="200" height="120"></p></div>
+                <h3 style="text-align: center">合合信息</h3>
+            </div>
+
+            <div class="right-box">
+                <p class="right-title">修改人</p>
+                <p><span class="glyphicon glyphicon-user right-span" aria-hidden="true"></span>zhu_wb</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

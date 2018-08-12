@@ -1,0 +1,36 @@
+.page-title{
+    text-align: center;
+    font-family: 微软雅黑;
+    margin-top: 100px;
+}
+.button-font{
+    font-family: 微软雅黑;
+}
+.form-size{
+    width: 70%;
+    margin: 0 auto
+}
+.form-container{
+    text-align: right;
+}
+.input-font{
+    font-family: 微软雅黑;
+    font-weight: 900;
+}
+.w-e-menu{
+    z-index: 1!important;
+}
+.w-e-text-container, .w-e-menu-panel{
+    z-index: 0!important;
+}
+.w-e-text-container{
+    min-height: 300px;
+    height: 100%;
+}
+.w-e-toolbar{
+    z-index: 10000;
+}
+.w-e-text{
+    min-height: 300px;
+    height: 100%;
+}

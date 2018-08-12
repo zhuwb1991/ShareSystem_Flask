@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    个人中心
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/people.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container container_div" >
+        <div class="row row_div">
+            <div class="col-md-8 col_div div_left">
+                <img class="head-ico username_image img-rounded" src="{{ url_for('static',filename='images/user.png') }}">
+                <span class="username">昵 称：{{ user.username }}</span>
+                <span class="email">邮 箱：{{ user.email }}</span>
+                <hr>
+                <img src="{{ url_for('static',filename='images/like.png') }}" class="ico"><span class="ico_text">赞同: 0</span>
+                <img src="{{ url_for('static',filename='images/heart.png') }}" class="ico"><span class="ico_text">感谢: 0</span>
+                <hr>
+            </div>
+            <div class="col-md-4 div_right">
+                <span>关注 0 人</span><span class="more"><a href="#">更多</a></span>
+                <hr>
+                <span>被 0 人关注</span><span class="more"><a href="#">更多</a></span>
+                <hr>
+                <span>主页访问量 : 829 次访问</span><span class="more"><a href="#">更多</a></span>
+                <hr>
+            </div>
+
+            <div class="col-md-8 col_div div_left">
+                <h4 style="margin-left: 20px"><b>已分享列表：</b></h4>
+                <ul class="article_list">
+                {% for a in articles %}
+                    <li class="article_li"><a href="{{ url_for('article.show',article_id=a.id) }}">{{ a.title }}</a></li>
+                    <a href="{{ url_for('article.edit_content', article_id=a.id) }}"><button class="btn edit">编辑</button></a>
+                    <a href="{{ url_for('article.delete', article_id=a.id) }}"><button class="btn btn-danger">删除</button></a>
+                    <br>
+                {% endfor %}
+                </ul>
+                <h4 style="margin-left: 20px"><b>未分享列表：</b></h4>
+                <ul class="article_list">
+                {% for a in not_post %}
+                    <li class="article_li"><a href="{{ url_for('article.show',article_id=a.id) }}">{{ a.title }}</a></li>
+                    <a href="{{ url_for('article.edit_content', article_id=a.id) }}"><button class="btn edit">编辑</button></a>
+                    <a href="{{ url_for('article.delete', article_id=a.id) }}"><button class="btn btn-danger">删除</button></a>
+                    <br>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
