@@ -1,0 +1,231 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    自动化测试
+{% endblock %}
+
+{% block head %}
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/templatemo_script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrapValidator.min.js') }}"></script>
+    <link href="{{ url_for('static', filename='css/bootstrapValidator.min.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/templatemo_main.css') }}">
+{% endblock %}
+
+
+{% block body %}
+    <body>
+        <div class="template-page-wrapper">
+            <div class="navbar-collapse collapse templatemo-sidebar">
+            <ul class="templatemo-sidebar-menu">
+              <li class="active"><a href="{{ url_for('auto_test.index') }}"><i class="fa fa-home"></i>Dashboard</a></li>
+              <li class="sub open">
+                <a href="javascript:;">
+                  <i class="fa fa-database"></i> Nested Menu <div class="pull-right"><span class="caret"></span></div>
+                </a>
+                <ul class="templatemo-submenu">
+                  <li><a href="#">Aenean</a></li>
+                </ul>
+              </li>
+              <li><a href="data-visualization.html"><i class="fa fa-cubes"></i><span class="badge pull-right">9</span>Data Visualization</a></li>
+              <li><a href="maps.html"><i class="fa fa-map-marker"></i><span class="badge pull-right">42</span>Maps</a></li>
+              <li><a href="tables.html"><i class="fa fa-users"></i><span class="badge pull-right">NEW</span>Manage Users</a></li>
+              <li><a href="{{ url_for('auto_test.build') }}"><i class="fa fa-cog"></i>UI 自动化</a></li>
+              <li><a href="javascript:;" data-toggle="modal" data-target="#confirmModal"><i class="fa fa-sign-out"></i>Sign Out</a></li>
+            </ul>
+          </div><!--/.navbar-collapse -->
+            <div class="templatemo-content-wrapper">
+                <div class="templatemo-content">
+                    <ol class="breadcrumb">
+                        <li><a href="#">自动化平台</a></li>
+                        <li><a href="#">Dashboard</a></li>
+                        <li class="active">Overview</li>
+                    </ol>
+                    <h1>Dashboard</h1>
+                    <p>自动化测试平台</p>
+                    <div class="margin-bottom-30">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ul class="nav nav-pills">
+                                    <li class="active"><a href="#">Home <span class="badge">42</span></a></li>
+                                    <li class="active"><a href="#">Profile <span class="badge">126</span></a></li>
+                                    <li class="active"><a href="#">Messages <span class="badge">14</span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="templatemo-progress">
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item active">
+                                        <h4 class="list-group-item-heading">正在执行</h4>
+                                        <p class="list-group-item-text">{{ project_name }}</p>
+                                    </a>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+                                        <span class="sr-only">45% Complete</span>
+                                    </div>
+                                </div>
+
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item">
+                                        <h4 class="list-group-item-heading">历史结果</h4>
+                                        <p class="list-group-item-text">CC_Android</p>
+                                    </a>
+                                </div>
+                                <div>
+                                    <p>测试结果</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="templatemo-panels">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist" id="templatemo-tabs">
+                      <li class="active"><a href="#home" role="tab" data-toggle="tab">Home</a></li>
+                      <li><a href="#profile" role="tab" data-toggle="tab">Profile</a></li>
+                      <li><a href="#messages" role="tab" data-toggle="tab">Messages</a></li>
+                      <li><a href="#settings" role="tab" data-toggle="tab">Settings</a></li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                      <div class="tab-pane fade in active" id="home">
+                        <ul class="list-group">
+                          <li class="list-group-item"><input type="checkbox" name="" value=""> Suspendisse dapibus sodales</li>
+                          <li class="list-group-item"><input type="checkbox" name="" value=""> Proin mattis ex vitae</li>
+                          <li class="list-group-item"><input type="checkbox" name="" value=""> Aenean euismod dui vel</li>
+                          <li class="list-group-item"><input type="checkbox" name="" value=""> Vivamus dictum posuere odio</li>
+                          <li class="list-group-item"><input type="checkbox" name="" value=""> Morbi convallis sed nisi suscipit</li>
+                        </ul>
+                      </div>
+                      <div class="tab-pane fade" id="profile">
+                        <ul class="list-group">
+                          <li class="list-group-item">
+                            <span class="badge">33</span>
+                            Vivamus dictum posuere odio
+                          </li>
+                          <li class="list-group-item">
+                            <span class="badge">9</span>
+                            Dapibus ac facilisis in
+                          </li>
+                          <li class="list-group-item">
+                            <span class="badge">0</span>
+                            Morbi convallis sed nisi suscipit
+                          </li>
+                          <li class="list-group-item">
+                            <span class="badge">14</span>
+                            Cras justo odio
+                          </li>
+                          <li class="list-group-item">
+                            <span class="badge">2</span>
+                            Vestibulum at eros
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="tab-pane fade" id="messages">
+                        <div class="list-group">
+                          <a href="#" class="list-group-item active">
+                            Morbi convallis sed nisi suscipit
+                          </a>
+                          <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+                          <a href="#" class="list-group-item">Morbi leo risus</a>
+                          <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+                          <a href="#" class="list-group-item">Vestibulum at eros</a>
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="settings">
+                        <div class="list-group">
+                          <a href="#" class="list-group-item disabled">
+                            Vivamus dictum posuere odio
+                          </a>
+                          <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+                          <a href="#" class="list-group-item">Vestibulum at eros</a>
+                          <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+                          <a href="#" class="list-group-item">Morbi leo risus</a>
+                        </div>
+                      </div>
+                    </div> <!-- tab-content -->
+                  </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Are you sure you want to sign out?</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="sign-in.html" class="btn btn-primary">Yes</a>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/Chart.min.js"></script>
+        <script src="js/templatemo_script.js"></script>
+        <script type="text/javascript">
+        // Line chart
+        var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+        var lineChartData = {
+          labels : ["January","February","March","April","May","June","July"],
+          datasets : [
+          {
+            label: "My First dataset",
+            fillColor : "rgba(220,220,220,0.2)",
+            strokeColor : "rgba(220,220,220,1)",
+            pointColor : "rgba(220,220,220,1)",
+            pointStrokeColor : "#fff",
+            pointHighlightFill : "#fff",
+            pointHighlightStroke : "rgba(220,220,220,1)",
+            data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+          },
+          {
+            label: "My Second dataset",
+            fillColor : "rgba(151,187,205,0.2)",
+            strokeColor : "rgba(151,187,205,1)",
+            pointColor : "rgba(151,187,205,1)",
+            pointStrokeColor : "#fff",
+            pointHighlightFill : "#fff",
+            pointHighlightStroke : "rgba(151,187,205,1)",
+            data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+          }
+          ]
+
+        }
+
+        window.onload = function(){
+          var ctx_line = document.getElementById("templatemo-line-chart").getContext("2d");
+          window.myLine = new Chart(ctx_line).Line(lineChartData, {
+            responsive: true
+          });
+        };
+
+        $('#myTab a').click(function (e) {
+          e.preventDefault();
+          $(this).tab('show');
+        });
+
+        $('#loading-example-btn').click(function () {
+          var btn = $(this);
+          btn.button('loading');
+          // $.ajax(...).always(function () {
+          //   btn.button('reset');
+          // });
+      });
+      </script>
+    </body>
+{% endblock %}

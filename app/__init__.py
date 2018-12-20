@@ -18,10 +18,12 @@ def create_app(config_name):
     from .people import people as people_bp
     from .article import article as article_bp
     from .comment import comment as comment_bp
+    from .auto_test import auto_test as autotest_bp
 
     app.register_blueprint(main_bp)
     app.register_blueprint(people_bp)
     app.register_blueprint(article_bp)
     app.register_blueprint(comment_bp)
+    app.register_blueprint(autotest_bp)
 
     return app
