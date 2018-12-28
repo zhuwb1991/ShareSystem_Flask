@@ -18,8 +18,8 @@
               </li>
               <li><a href="data-visualization.html"><i class="fa fa-cubes"></i><span class="badge pull-right">9</span>Data Visualization</a></li>
               <li><a href="maps.html"><i class="fa fa-map-marker"></i><span class="badge pull-right">42</span>Maps</a></li>
-              <li><a href="{{ url_for('auto_test.upgrade') }}"><i class="fa fa-users"></i><span class="badge pull-right">NEW</span>升级测试</a></li>
-              <li class="active"><a href="{{ url_for('auto_test.build') }}"><i class="fa fa-cog"></i>UI 自动化</a></li>
+              <li class="active"><a href="{{ url_for('auto_test.upgrade') }}"><i class="fa fa-users"></i><span class="badge pull-right">NEW</span>升级测试</a></li>
+              <li><a href="{{ url_for('auto_test.build') }}"><i class="fa fa-cog"></i>UI 自动化</a></li>
               <li><a href="javascript:;" data-toggle="modal" data-target="#confirmModal"><i class="fa fa-sign-out"></i>Sign Out</a></li>
             </ul>
             </div><!--/.navbar-collapse -->
@@ -27,26 +27,22 @@
                 <div class="templatemo-content">
                   <ol class="breadcrumb">
                     <li><a href="{{ url_for('auto_test.index') }}">自动化平台</a></li>
-                    <li><a href="#">UI 自动化</a></li>
+                    <li><a href="#">升级测试</a></li>
                     <li class="active">运行测试</li>
                   </ol>
-                  <h1>UI自动化测试</h1>
-                  <p class="margin-bottom-15">注意事项：<br>
-                      1. 首先选择需要测试的项目<br>
-                      2. 输入测试的账号和密码<br>
-                      3. 监测<br>
-                      4. 手机连接上电脑<br>
-                      5. 点击开始执行
+                  <h1>升级测试</h1>
+                  <p class="margin-bottom-15"><p>
+                    注意事项</p>
+                    <p>1. </p>
                   </p>
                   <div class="row">
                     <div class="col-md-12">
-                      <form role="form" id="templatemo-preferences-form" method="post" action="{{ url_for('auto_test.build') }}">
+                      <form role="form" enctype="multipart/form-data" name="form" id="templatemo-preferences-form">
                           <div class="row">
                             <div class="col-md-6 margin-bottom-15">
                               <label for="singleSelect">项目</label>
                               <select class="form-control margin-bottom-15" id="singleSelect" name="singleSelect">
                                 <option>CC_Android</option>
-                                <option>CC_iOS</option>
                                 <option>找到_Android</option>
                                 <option>###</option>
                               </select>
@@ -54,12 +50,24 @@
                           </div>
                           <div class="row">
                               <div class="col-md-6 margin-bottom-15">
-                                <label for="firstName" class="control-label">账号</label>
-                                <input type="text" class="form-control" id="account" name="account" placeholder="John">
+                                <div class="form-group">
+                                    <label for="exampleInputFile">上传最新版本</label>
+                                    <input type="file" id="exampleInputFile" name="file">
+                                    <input type="button" onclick="upload()" class="btn btn-primary" value="确认上传">
+                                </div>
                               </div>
+                          </div>
+                          <div class="row">
                               <div class="col-md-6 margin-bottom-15">
-                                <label for="lastName" class="control-label">密码</label>
-                                <input type="text" class="form-control" id="password" name="password" placeholder="Henry">
+                                <label for="checkbox">选择升级版本</label>
+                                {% for app in apps %}
+                                    <div id="app_checkbox" class="checkbox">
+                                      <label>
+                                        <input id="app_list" type="checkbox" checked="checked" value="">
+                                        {{ app }}
+                                      </label>
+                                    </div>
+                                {% endfor %}
                               </div>
                           </div>
                           <div class="row">
@@ -95,6 +103,47 @@
         </div>
         </div>
       </div>
+      <script>
+          function upload() {
 
+              var form_data = new FormData($('#templatemo-preferences-form')[0]);
+
+              $.ajax({
+                  url: '/auto_test/upgrade',
+                  type: 'POST',
+                  data: form_data,
+                  cache:false,
+                  processData:false,
+                  contentType:false,
+                  dataType: 'json',
+                  success: function (res) {
+                      alert("success");
+                  }
+              })
+          }
+
+          $(document).ready(function () {
+
+              $("#singleSelect").change(function () {
+                  var select_value = $("#singleSelect").val();
+                  var list = $("#app_checkbox").empty();
+                  $.ajax({
+                      async: false,
+                      type: 'GET',
+                      url: '/auto_test/get_apps/' + select_value,
+                      dataType: 'json',
+                      success: function (res) {
+                         console.log(res);
+                         for(var i=0; i<res.apps.length; i++){
+                             console.log(i);
+                             var str = '<div id="app_checkbox" class="checkbox"><label><input id="app_list" type="checkbox" checked="checked" value="">' + res.apps[i] + '</label> </div>';
+                             list.append(str);
+                         }
+                      },
+                  });
+              })
+          })
+
+      </script>
     </body>
 {% endblock %}
